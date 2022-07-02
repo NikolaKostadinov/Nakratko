@@ -1,11 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
 const { PORT } = process.env;
 const { DATA_LIMIT } = process.env;
+const { DB_URI } = process.env;
 
 const app = express();
 app.use(express.json());
@@ -19,6 +21,8 @@ app.get('/', (request, response) => {
 	response.send('SERVER ALL RIGHT');
 });
 
-app.listen(PORT, () => {
-	console.log(`SERVER RUNNING ON PORT::${PORT}`);
+mongoose.connect(DB_URI, () => {
+	app.listen(PORT, () => {
+		console.log(`SERVER RUNNING ON PORT::${PORT}`);
+	});
 });
