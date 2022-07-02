@@ -1,1 +1,12 @@
 GET http://localhost:5000/books
+
+###
+
+POST  http://localhost:5000/books
+Content-Type: application/json
+
+{
+    "book": {
+        "title": "Test Book"
+    }
+}
