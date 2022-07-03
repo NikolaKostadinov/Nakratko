@@ -5,9 +5,12 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
+import adminRouter from './routes/admin.routes.js';
 import bookRouter from './routes/book.routes.js';
 import userRouter from './routes/user.routes.js';
 import paymentRouter from './routes/payment.routes.js';
+
+import * as serverController from './controllers/server.controller.js';
 
 dotenv.config();
 const {
@@ -30,12 +33,12 @@ app.use(cors());
 
 app.use(helmet());
 
-app.get('/', (request, response) => {
-	response.send('WEB SERVER ALL RIGHT');
-});
+app.get('/', serverController.serverCheck);
+app.use('/admin', adminRouter);
 app.use('/books', bookRouter);
 app.use('/users', userRouter);
 app.use('/payment', paymentRouter);
+app.use('*', serverController.nonExisting);
 
 mongoose.connect(DB_URI, () => {
 	app.listen(PORT, () => {
