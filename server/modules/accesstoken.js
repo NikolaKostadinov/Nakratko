@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 const { ACCESS_TOKEN_SECRET, REFRESH_TIME } = process.env;
 
-
 export const decodeAccessToken = (accessToken) => {
 
     return jwt.verify(accessToken, ACCESS_TOKEN_SECRET, (error, decodedAccessToken) => {

@@ -1,4 +1,4 @@
-import nonexistingError from '../errors/nonexisting.error.js';
+import notFoundError from '../errors/404.js';
 
 export const serverCheck = (request, response) => {
 
@@ -8,6 +8,6 @@ export const serverCheck = (request, response) => {
 
 export const nonExisting = (request, response) => {
 
-    nonexistingError(response);
+    notFoundError(response);
 
 }

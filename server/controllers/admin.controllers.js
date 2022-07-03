@@ -2,10 +2,8 @@ import dotenv from 'dotenv';
 
 import userModel from '../models/user.model.js';
 
-import serverError from '../errors/server.error.js';
-import idmissingError from '../errors/idmissing.error.js';
-import rolemissingError from '../errors/rolemissing.error.js';
-import roleinvalidError from '../errors/roleinvalid.error.js';
+import Error from '../errors/error.js';
+import serverError from '../errors/500.js';
 
 dotenv.config();
 const { ADMIN_KEY, WRITER_KEY } = process.env;
@@ -16,8 +14,8 @@ export const setRole = async (request, response) => {
         
         const { id, role } = request.query;
 
-        if (!id) idmissingError(response);
-        else if (!role) rolemissingError(response);
+        if (!id) Error(response, 'userIdMissing');
+        else if (!role) Error(response, 'roleMissing');
         else {
 
             if (role === 'admin') {
@@ -30,7 +28,7 @@ export const setRole = async (request, response) => {
                 await userModel.findByIdAndUpdate(id, { roleKey: WRITER_KEY });
                 response.status(200).json({ id, role });
             }
-            else roleinvalidError(response);
+            else Error(response, 'invalidRole');
         }
 
     } catch (error) {
@@ -45,7 +43,7 @@ export const removeRole = async (request, response) => {
         
         const { id } = request.query;
 
-        if (!id) idmissingError(response);
+        if (!id) Error(response, 'userIdMissing');
         else {
 
             await userModel.findByIdAndUpdate(id, { roleKey: null });

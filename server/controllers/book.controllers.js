@@ -1,8 +1,7 @@
 import bookModel from '../models/book.model.js';
 
-import serverError from '../errors/server.error.js';
-import missingFileds from '../errors/missingfileds.error.js';
-import invalidQuery from '../errors/invalidquery.error.js';
+import Error from '../errors/error.js';
+import serverError from '../errors/500.js';
 
 export const getCoverBooks = async (request, response) => {
 
@@ -30,9 +29,9 @@ export const getCoverBooks = async (request, response) => {
 
                 response.status(200).json({ books });
 
-            } else invalidQuery(response);
+            } else Error(response, 'invalidQuery');
 
-        } else missingFileds(response);
+        } else Error(response, 'missingFields');
 
     } catch (error) {
         serverError(response, error);

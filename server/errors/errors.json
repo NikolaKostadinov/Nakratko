@@ -1,0 +1,74 @@
+{
+    "invalidAdminKey": {
+        "status": 403,
+        "json": {
+            "error": "Role key invalid. Valid admin key required."
+        }
+    },
+    "bearer": {
+        "status": 400,
+        "json": {
+            "error": "Improper client request. Request must have authorization header starting with 'Bearer' followed by the bearer token."
+        }
+    },
+    "unauthenticated": {
+        "status": 401,
+        "json": {
+            "error": "Invalid access token."
+        }
+    },
+    "roleKeyMissing": {
+        "status": 403,
+        "json": {
+            "error": "Role key not provided."
+        }
+    },
+    "writerKeyInvalid": {
+        "status": 403,
+        "json": {
+            "error": "Invalid role key. Valid writer or admin key required."
+        }
+    },
+    "userIdMissing": {
+        "status": 400,
+        "json": {
+            "error": "Id not provided."
+        }
+    },
+    "roleMissing": {
+        "status": 400,
+        "json": {
+            "error": "Role not provided."
+        }
+    },
+    "invalidRole": {
+        "status": 400,
+        "json": {
+            "error": "Invalid role."
+        }
+    },
+    "missingFileds": {
+        "status": 400,
+        "json": {
+            "error": "Missing fields."
+        }
+    },
+    "invalidQuery": {
+        "status": 400,
+        "json": {
+            "error": "Invalid query."
+        }
+    },
+    "invalidPassword": {
+        "status": 401,
+        "json": {
+            "error": "Wrong password."
+        }
+    },
+    "userExists": {
+        "status": 409,
+        "json": {
+            "error": "User already exists."
+        }
+    }
+}

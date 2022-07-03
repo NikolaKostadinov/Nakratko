@@ -3,9 +3,8 @@ import bcrypt from 'bcrypt';
 import userModel from '../models/user.model.js';
 import { generateAccessToken } from '../modules/accesstoken.js';
 
-import serverError from '../errors/server.error.js';
-import passwordError from '../errors/password.error.js';
-import userexistsError from '../errors/userexists.error.js';
+import Error from '../errors/error.js';
+import serverError from '../errors/500.js';
 
 export const getUser = async (request, response) => {
     
@@ -39,7 +38,7 @@ export const loginUser = async (request, response) => {
 
             response.status(201).json({ user: userInDBSecured, accessToken });
 
-        } else passwordError(response);
+        } else Error(response, 'invalidPassword');
 
     } catch (error) {
         serverError(response, error);
@@ -55,7 +54,7 @@ export const registerUser = async (request, response) => {
 
         const dummyUserInDB = await userModel.findOne(user);
 
-        if (dummyUserInDB) userexistsError(response);
+        if (dummyUserInDB) Error(response, 'userExists');
         else {
             
             const userInDB = new userModel(user);

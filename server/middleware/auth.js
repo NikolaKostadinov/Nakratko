@@ -3,12 +3,8 @@ import { getBearerToken } from '../modules/bearertoken.js';
 import { decodeAccessToken } from '../modules/accesstoken.js';
 import { isAdmin, isWriter } from '../modules/roles.js';
 
-import serverError from '../errors/server.error.js';
-import bearerError from '../errors/bearer.error.js';
-import unauthenticatedError from '../errors/unauthenticated.error.js';
-import rolekeymissingError from '../errors/rolekeymissing.error.js';
-import adminkeyinvalidError from '../errors/adminkeyinvalid.error.js';
-import writerkeyinvalidError from '../errors/writerkeyinvalid.error.js';
+import Error from '../errors/error.js';
+import serverError from '../errors/500.js';
 
 export const authenticateUser = (request, response, next) => {
 
@@ -16,12 +12,12 @@ export const authenticateUser = (request, response, next) => {
         
         const accessToken = getBearerToken(request);
 
-        if (!accessToken) bearerError(response);
+        if (!accessToken) Error(response, 'bearer');
         else {
 
             const decodedAccessToken = decodeAccessToken(accessToken);
 
-            if (!decodedAccessToken) unauthenticatedError(response);
+            if (!decodedAccessToken) Error(response, 'unauthenticated');
             else {
                 next();
             }
@@ -40,12 +36,12 @@ export const authenticateSubscribedUser = (request, response, next) => {
         
         const accessToken = getBearerToken(request);
 
-        if (!accessToken) bearerError(response);
+        if (!accessToken) Error(response, 'bearer');
         else {
 
             const decodedAccessToken = decodeAccessToken(accessToken);
 
-            if (!decodedAccessToken) unauthenticatedError(response);
+            if (!decodedAccessToken) Error(response, 'unauthenticated');
             else {
 
                 // some logic
@@ -67,23 +63,23 @@ export const authenticateAdmin = async (request, response, next) => {
         
         const accessToken = getBearerToken(request);
 
-        if (!accessToken) bearerError(response);
+        if (!accessToken) Error(response, 'bearer');
         else {
 
             const decodedAccessToken = decodeAccessToken(accessToken);
 
-            if (!decodedAccessToken) unauthenticatedError(response);
+            if (!decodedAccessToken) Error(response, 'unauthenticated');
             else {
 
                 const id = decodedAccessToken.userId;
                 const userInDBSecured = await userModel.findById(id).select('-password');
                 const { roleKey } = userInDBSecured;
 
-                if (!roleKey) rolekeymissingError(response);
+                if (!roleKey) Error(response, 'roleKeyMissing');
                 else {
 
                     if (isAdmin(roleKey)) next();
-                    else adminkeyinvalidError(response);
+                    else Error(response, 'invalidAdminKey');
                     
                 }
             }
@@ -102,7 +98,7 @@ export const authenticateWriter = async (request, response, next) => {
         
         const accessToken = getBearerToken(request);
 
-        if (!accessToken) bearerError(response);
+        if (!accessToken) Error(response, 'bearer');
         else {
 
             const decodedAccessToken = decodeAccessToken(accessToken);
@@ -114,11 +110,11 @@ export const authenticateWriter = async (request, response, next) => {
                 const userInDBSecured = await userModel.findById(id).select('-password');
                 const { roleKey } = userInDBSecured;
 
-                if (!roleKey) rolekeymissingError(response);
+                if (!roleKey) Error(response, 'roleKeyMissing');
                 else {
 
                     if (isWriter(roleKey) || isAdmin(roleKey)) next();
-                    else writerkeyinvalidError(response);
+                    else Error(response, 'writerKeyInvalid');
                     
                 }
             }
