@@ -8,10 +8,7 @@ const { ACCESS_TOKEN_SECRET, REFRESH_TIME } = process.env;
 export const decodeAccessToken = (accessToken) => {
 
     return jwt.verify(accessToken, ACCESS_TOKEN_SECRET, (error, decodedAccessToken) => {
-        if (error)
-        {
-            return false;
-        }
+        if (error) return false;
         else {
             
             const result = {
