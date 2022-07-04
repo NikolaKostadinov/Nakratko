@@ -11,9 +11,9 @@ export const getUser = async (request, response) => {
     
     try {
         
-        const { id } = request.params;
+        const user = request.query;
 
-        const userInDBSecured = await userModel.findById(id).select('-password');
+        const userInDBSecured = await userModel.find(user).select('-password');
 
         response.status(200).json({ user: userInDBSecured });
 

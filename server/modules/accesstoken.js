@@ -12,7 +12,8 @@ export const decodeAccessToken = (accessToken) => {
             
             const result = {
                 status: 'authenticated',
-                userId: decodedAccessToken.userId
+                userId: decodedAccessToken.userId,
+                userSubscriptionToken: decodedAccessToken.userSubscriptionToken
             }
 
             return result;
@@ -26,7 +27,6 @@ export const generateAccessToken = (user) => {
 
     const payload = {
         userId: user._id,
-        userRefreshToken: user.refreshToken,
         userSubscriptionToken: user.subscriptionToken
     };
     const options = {

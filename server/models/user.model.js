@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         requred: true,
         trim: false
     },
-    subscriptionToken: {
+    subscriptionKey: {
         type: String,
         unique: false,
         requred: false,
