@@ -41,6 +41,18 @@
             "error": "Role not provided."
         }
     },
+    "subscribtionKeyMissing": {
+        "status": 400,
+        "json": {
+            "error": "Subscribtion key not provided."
+        }
+    },
+    "invalidSubscribtionKey": {
+        "status": 400,
+        "json": {
+            "error": "Invalid subscribtion key."
+        }
+    },
     "invalidRole": {
         "status": 400,
         "json": {
@@ -69,6 +81,12 @@
         "status": 409,
         "json": {
             "error": "User already exists."
+        }
+    },
+    "notSubscribed": {
+        "status": 402,
+        "json": {
+            "error": "User not subscribed."
         }
     }
 }

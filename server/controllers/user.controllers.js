@@ -53,7 +53,7 @@ export const registerUser = async (request, response) => {
         
         const { user } = request.body;
 
-        const dummyUserInDB = await userModel.findOne(user);
+        const dummyUserInDB = await userModel.find(user);
 
         if (dummyUserInDB) Error(response, 'userExists');
         else {

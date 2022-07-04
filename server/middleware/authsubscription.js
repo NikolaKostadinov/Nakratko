@@ -1,26 +1,31 @@
 import { getBearerToken } from '../modules/bearertoken.js';
 import { decodeAccessToken } from '../modules/accesstoken.js';
+import { isAdmin, isWriter } from '../modules/roles.js';
 
 import Error from '../errors/error.js';
 import serverError from '../errors/500.js';
 
-export const authenticateSubscribedUser = (request, response, next) => {
+export const authenticateSubscribedUser = async (request, response, next) => {
 
     try {
         
-        const accessToken = getBearerToken(request);
+        const subscriptionToken = getBearerToken(request);
 
-        if (!accessToken) Error(response, 'bearer');
+        if (!subscriptionToken) Error(response, 'bearer');
         else {
 
-            const decodedAccessToken = decodeAccessToken(accessToken);
+            const decodedSubscriptionToken = decodeAccessToken(subscriptionToken);
 
-            if (!decodedAccessToken) Error(response, 'unauthenticated');
+            if (!decodedSubscriptionToken) Error(response, 'unauthenticated');
             else {
 
-                // some logic
+                const id = decodedSubscriptionToken.userId;
+                const userInDBSecured = await userModel.findById(id).select('-password');
+                const { roleKey, subscriptionToken } = userInDBSecured;
 
-                next();
+                if (isAdmin(roleKey) || isWriter(roleKey) || isSubscribed(subscriptionToken)) next();
+                else Error(response, 'notSubscribed');
+
             }
 
         }

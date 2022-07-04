@@ -18,6 +18,7 @@ export const authenticateUser = (request, response, next) => {
 
             if (!decodedAccessToken) Error(response, 'unauthenticated');
             else {
+                request.userId = decodedAccessToken.userId;
                 next();
             }
 

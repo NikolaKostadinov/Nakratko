@@ -2,12 +2,12 @@ import fs from 'fs';
 
 export default (response, type) => {
 
-    const errorsPath = './json/errors.json';
+    const ERRORS_PATH = './json/errors.json';
 
-    const rawErrors = fs.readFileSync(errorsPath);
+    const rawErrors = fs.readFileSync(ERRORS_PATH);
     const serverErrors = JSON.parse(rawErrors);
 
-    if (!serverErrors[type]) return response.status(500).json({ error: `Error type \'${type}\' not defined. Define it in ${errorsPath}` });
+    if (!serverErrors[type]) return response.status(500).json({ error: `Error type \'${type}\' not defined. Define it in ${ERRORS_PATH}` });
     else {
 
         const { status, json } = serverErrors[type];
