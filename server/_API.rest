@@ -7,11 +7,16 @@ Content-Type: application/json
         "lastName": "Admin",
         "email": "admin@nakratko.com",
         "password": "123456",
-        "roleKey": "1111"
+        "roleKey": "0000"
     }
 }
 
 ###
 
+GET http://localhost:5000/users/refresh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmMzMDljMDM0ZWY0Mjg2ZDMxOTM4MmQiLCJpYXQiOjE2NTY5NDkxODR9.2le_0WI7MInz9Wz13haPiMqQQvqG-ROOBGuqbtFE0Us
+
+###
+
 GET http://localhost:5000/books
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmMxZGFhMmYxNmViZDk3OTA3ZmYwNjAiLCJpYXQiOjE2NTY4NzQ0MjgsImV4cCI6MTY1Njg3NzEyOH0.zF41TxMUIuWl8pgmTcs9iq4ZF21-ppZJuOm0H5iLbww
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmMzMDljMDM0ZWY0Mjg2ZDMxOTM4MmQiLCJ1c2VyUmVmcmVzaFRva2VuIjoiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjFjMlZ5U1dRaU9pSTJNbU16TURsak1ETTBaV1kwTWpnMlpETXhPVE00TW1RaUxDSnBZWFFpT2pFMk5UWTVORGt4T0RSOS4ybGVfMFdJN01Jbno5V3oxM2hhUGlNcVFRdnFHLVJPT0JHdXFidEZFMFVzIiwiaWF0IjoxNjU2OTUxMTM0LCJleHAiOjE2NTY5NTExNDR9.BeWbs-AaU4GFdNnF82izZofXQ_6ETl6B5C4c26_OEpE

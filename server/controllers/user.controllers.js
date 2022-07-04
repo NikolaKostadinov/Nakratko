@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 
 import userModel from '../models/user.model.js';
 import { generateAccessToken } from '../modules/accesstoken.js';
+import { generateRefreshToken } from '../modules/refreshtoken.js';
 
 import Error from '../errors/error.js';
 import serverError from '../errors/500.js';
@@ -58,11 +59,14 @@ export const registerUser = async (request, response) => {
         else {
             
             const userInDB = new userModel(user);
+
+            const accessToken = generateAccessToken(userInDB);
+            const refreshToken = generateRefreshToken(userInDB);
+
+            userInDB.refreshToken = refreshToken;
             await userInDB.save();
 
             delete userInDB.password;
-    
-            const accessToken = generateAccessToken(userInDB);
     
             response.status(201).json({ user: userInDB, accessToken });
 
@@ -71,4 +75,23 @@ export const registerUser = async (request, response) => {
     } catch (error) {
         serverError(response, error);
     }
+}
+
+export const refreshAccess = async (request, response) => {
+
+    try {
+
+        const { userId } = request;
+
+        if (!userId) Error(response, 'userIdMissing');
+
+        const userInDBSecured = await userModel.findById(userId).select('-password');
+        const accessToken = generateAccessToken(userInDBSecured);
+
+        response.status(200).json({ accessToken });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+
 }

@@ -7,8 +7,13 @@ export default (response, type) => {
     const rawErrors = fs.readFileSync(errorsPath);
     const serverErrors = JSON.parse(rawErrors);
 
-    const { status, json } = serverErrors[type];
+    if (!serverErrors[type]) return response.status(500).json({ error: `Error type \'${type}\' not defined. Define it in ${errorsPath}` });
+    else {
 
-    return response.status(status).json({...json, type });
+        const { status, json } = serverErrors[type];
+
+        return response.status(status).json({...json, type });
+
+    }
 
 }
