@@ -3,10 +3,11 @@ Content-Type: application/json
 
 {
     "user": {
-        "firstName": "Elon",
-        "lastName": "Musk",
-        "email": "musk@spacex.com",
-        "password": "123456"
+        "firstName": "Server",
+        "lastName": "Admin",
+        "email": "admin@nakratko.com",
+        "password": "123456",
+        "roleKey": "0000"
     }
 }
 
@@ -18,4 +19,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmMzM
 ###
 
 POST http://localhost:5000/payment/subscribe
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmMzM2JkMTMwZDk5YTYyNWY2MTU3MGQiLCJ1c2VyU3Vic2NyaXB0aW9uVG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKMWMyVnlTV1FpT2lJMk1tTXpNMkprTVRNd1pEazVZVFl5TldZMk1UVTNNR1FpTENKcFlYUWlPakUyTlRjd01UUXlNRGg5LndJYVdZOW5Ga0l1Q1A2RWliZTVLV0VGX21Nc3dId0R5VXRGX3o0OFRCZE0iLCJpYXQiOjE2NTcwMzUwNDAsImV4cCI6MTY1NzAzNTY0MH0.Hpf7Mf5NqkyoUDQ764R6TGy58QpXkBXuBIgzAV6uxpQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NmFlMTkzM2Q4ZmJkZjNhYmIxMjYiLCJpYXQiOjE2NTcwMzk1ODUsImV4cCI6MTY1NzA0MDE4NX0.nWaRswXFua_JlrITc6Mz7h6qZaO_NkfQYvfl4wsbxq8

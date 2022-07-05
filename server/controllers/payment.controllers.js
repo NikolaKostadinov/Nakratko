@@ -23,7 +23,7 @@ export const createSubscription = async (request, response) => {
         const userInDBSecured = await userModel.findById(userId).select('-password');
         const { firstName, lastName, email } = userInDBSecured;
 
-        if (isSubscribed(userInDBSecured.subscriptionId)) response.status(200).json({ status: 'Already subscribed.' });
+        if (await isSubscribed(userInDBSecured.subscriptionId)) response.status(200).json({ status: 'Already subscribed.' });
         else {
 
             const customer = await STRIPE.customers.create({
@@ -34,14 +34,13 @@ export const createSubscription = async (request, response) => {
                     default_payment_method: paymentMethod,
                 }
             });
+            const customerId = customer.id;
             
             const subscription = await STRIPE.subscriptions.create({
                 customer: customerId,
                 items: [{ plan: SUBSCRIPTION_PLAN }],
                 expand: ['latest_invoice.payment_intent']
             });
-            
-            const customerId = customer.id;
             const subscriptionId = subscription.id;
             
             await userModel.findOneAndUpdate(userInDBSecured, { customerId, subscriptionId });
