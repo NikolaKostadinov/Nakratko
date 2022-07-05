@@ -37,7 +37,7 @@ export const blockSubscriptionToken = (subscriptionToken) => {
 
 export const isSubscribed = (subscriptionToken) => {
 
-    jwt.verify(subscriptionToken, SUBSCRIPTION_TOKEN_SECRET, (error, decodedSubscriptionToken) => {
+    return jwt.verify(subscriptionToken, SUBSCRIPTION_TOKEN_SECRET, (error, decodedSubscriptionToken) => {
         if (error) return false;
         else {
 
