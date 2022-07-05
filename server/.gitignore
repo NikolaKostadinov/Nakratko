@@ -1,8 +1,6 @@
 /node_modules
-/json
 _*
 .*
 *docker*
 *Docker*
 *env*
-_API.rest

@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-import { generateInvalidSubscriptionToken } from '../modules/subscriptiontoken.js';
-
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -33,12 +31,19 @@ const userSchema = new mongoose.Schema({
         requred: true,
         trim: false
     },
-    subscriptionToken: {
+    customerId: {
         type: String,
         unique: false,
         requred: false,
         trim: false,
-        default: generateInvalidSubscriptionToken()
+        default: null
+    },
+    subscriptionId: {
+        type: String,
+        unique: false,
+        requred: false,
+        trim: false,
+        default: null
     },
     roleKey: {
         type: String,

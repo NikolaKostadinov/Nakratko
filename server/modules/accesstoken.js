@@ -12,8 +12,7 @@ export const decodeAccessToken = (accessToken) => {
             
             const result = {
                 status: 'authenticated',
-                userId: decodedAccessToken.userId,
-                userSubscriptionToken: decodedAccessToken.userSubscriptionToken
+                userId: decodedAccessToken.userId
             }
 
             return result;
@@ -26,8 +25,7 @@ export const decodeAccessToken = (accessToken) => {
 export const generateAccessToken = (user) => {
 
     const payload = {
-        userId: user._id,
-        userSubscriptionToken: user.subscriptionToken
+        userId: user._id
     };
     const options = {
         expiresIn: REFRESH_TIME

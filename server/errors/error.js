@@ -2,7 +2,7 @@ import fs from 'fs';
 
 export default (response, type) => {
 
-    const ERRORS_PATH = './json/errors.json';
+    const ERRORS_PATH = './errors/errors.json';
 
     const rawErrors = fs.readFileSync(ERRORS_PATH);
     const serverErrors = JSON.parse(rawErrors);

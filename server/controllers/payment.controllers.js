@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 
 import userModel from '../models/user.model.js';
 
-import { generateValidSubscriptionToken, isSubscribed } from '../modules/subscriptiontoken.js';
+import { isSubscribed } from '../modules/payment.js';
 
+import Error from '../errors/error.js';
 import serverError from '../errors/500.js';
 
 dotenv.config();
@@ -17,37 +18,58 @@ export const createSubscription = async (request, response) => {
     try {
         
         const { userId } = request;
+        const { paymentMethod } = request.body;
+
         const userInDBSecured = await userModel.findById(userId).select('-password');
+        const { firstName, lastName, email } = userInDBSecured;
 
-        if (isSubscribed(userInDBSecured.subscriptionToken)) response.status(200).json({ message: 'Already subscribed.' });
+        if (isSubscribed(userInDBSecured.subscriptionId)) response.status(200).json({ status: 'Already subscribed.' });
         else {
-
-            const { firstName, lastName, email } = userInDBSecured;
-            const paymentMethod = request.body.payment_method;
 
             const customer = await STRIPE.customers.create({
                 payment_method: paymentMethod,
                 name: `${firstName} ${lastName}`,
                 email,
                 invoice_settings: {
-                  default_payment_method: paymentMethod,
+                    default_payment_method: paymentMethod,
                 }
             });
-
+            
             const subscription = await STRIPE.subscriptions.create({
-                customer: customer.id,
+                customer: customerId,
                 items: [{ plan: SUBSCRIPTION_PLAN }],
                 expand: ['latest_invoice.payment_intent']
             });
+            
+            const customerId = customer.id;
+            const subscriptionId = subscription.id;
+            
+            await userModel.findOneAndUpdate(userInDBSecured, { customerId, subscriptionId });
+    
             const clientSecret = subscription.latest_invoice.payment_intent.client_secret;
             const { status } = subscription.latest_invoice.payment_intent;
-
-            const subscriptionToken = generateValidSubscriptionToken(userInDBSecured);
-            await userModel.findOneAndUpdate(userInDBSecured, { subscriptionToken });
-
+    
             response.status(201).json({ clientSecret, status });
 
         }
+
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
+export const deleteSubscription = async (request, response) => {
+
+    try {
+        
+        const { userId } = request;
+        const userInDBSecured = await userModel.findById(userId).select('-password');
+        const { subscriptionId } = userInDBSecured;
+
+        await STRIPE.subscriptions.del(subscriptionId);
+
+        response.status(200).json({ userId });
 
     } catch (error) {
         serverError(response, error);
