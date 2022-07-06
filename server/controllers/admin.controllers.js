@@ -8,6 +8,55 @@ import serverError from '../errors/500.js';
 dotenv.config();
 const { ADMIN_KEY, WRITER_KEY } = process.env;
 
+export const getUser = async (request, response) => {
+
+    try {
+        
+        const user = request.query;
+
+        const userInDBSecured = await userModel.findOne(user).select('-password');
+
+        response.status(200).json({ user: userInDBSecured });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
+export const updateUser = async (request, response) => {
+
+    try {
+        
+        const user = request.query;
+        const userUpdate = request.body.user;
+
+        await userModel.findOneAndUpdate(user, userUpdate);
+
+        response.status(200).json({ userUpdate });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
+export const deleteUser = async (request, response) => {
+
+    try {
+        
+        const user = request.query;
+
+        await userModel.findOneAndDelete(user);
+
+        response.status(200).json({ user });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
 export const setRole = async (request, response) => {
 
     try {
@@ -41,13 +90,13 @@ export const removeRole = async (request, response) => {
 
     try {
         
-        const { id } = request.query;
+        const { userId } = request.query;
 
-        if (!id) Error(response, 'userIdMissing');
+        if (!userId) Error(response, 'userIdMissing');
         else {
 
-            await userModel.findByIdAndUpdate(id, { roleKey: null });
-            response.status(200).json({ id });
+            await userModel.findByIdAndUpdate(userId, { roleKey: null });
+            response.status(200).json({ userId });
         }
 
     } catch (error) {

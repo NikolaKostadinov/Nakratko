@@ -1,4 +1,4 @@
-POST http://localhost:5000/users/login
+POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/users/refresh
+GET http://localhost:5000/user/refresh
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmMzM2JkMTMwZDk5YTYyNWY2MTU3MGQiLCJpYXQiOjE2NTY5NjIwMDF9.dgQ5dkIKVxwz0RuH6WLx5BjCIfYTk3bWqIqcPCrodk0
 
 ###
@@ -28,4 +28,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0O
 
 ###
 
-GET http://localhost:5000
+GET http://localhost:5000/admin/getuser?firstName=Server
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NzA3NTIyMTU3Mzg5YTE0NjgwMzEiLCJpYXQiOjE2NTcxMzAyOTMsImV4cCI6MTY1NzEzMDg5M30.9v0C5qfDEWV_HUjBaKYeza6_aaGQS8sh9iSgVMJbG28

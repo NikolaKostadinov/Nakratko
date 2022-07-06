@@ -72,12 +72,12 @@ export const postBook = async (request, response) => {
 export const updateBook = async (request, response) => {
 
     try {
-        const { writerId } = request;
+        const { writerId, isAdmin } = request;
         const { book } = request.body;
 
         const [ bookInDB ] = await bookModel.find(book);
 
-        if (writerId !== bookInDB.createdBy) Error(response, 'notYourBook');
+        if (writerId !== bookInDB.createdBy || !isAdmin) Error(response, 'notYourBook');
         else {
             
             await bookModel.findByIdAndUpdate(book.id, { ...book, updatedAt: new Date() });

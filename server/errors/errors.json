@@ -88,5 +88,11 @@
         "json": {
             "error": "User not subscribed."
         }
+    },
+    "notYourBook": {
+        "status": 403,
+        "json": {
+            "error": "This book is not yours or you are not an admin."
+        }
     }
 }

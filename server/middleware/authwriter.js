@@ -31,6 +31,7 @@ export const authenticateWriter = async (request, response, next) => {
                     if (isWriter(roleKey) || isAdmin(roleKey)) {
 
                         request.writerId = userInDBSecured.id;
+                        request.isAdmin = isAdmin(roleKey);
                         next();
 
                     }
