@@ -50,6 +50,18 @@ const userSchema = new mongoose.Schema({
         unique: false,
         requred: false,
         trim: false
+    },
+    createdAt: {
+        type: Date,
+        unique: false,
+        requred: false,
+        default: new Date()
+    },
+    updatedAt: {
+        type: Date,
+        unique: false,
+        requred: false,
+        default: new Date()
     }
 });
 

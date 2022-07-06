@@ -82,13 +82,48 @@ export const refreshAccess = async (request, response) => {
     try {
 
         const { userId } = request;
-
         if (!userId) Error(response, 'userIdMissing');
 
         const userInDBSecured = await userModel.findById(userId).select('-password');
         const accessToken = generateAccessToken(userInDBSecured);
 
         response.status(200).json({ accessToken });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
+export const updateUser = async (request, response) => {
+
+    try {
+        
+        const { userId } = request;
+        if (!userId) Error(response, 'userIdMissing');
+
+        const userUpdated = request.body.user;
+        
+        await userModel.findByIdAndUpdate(userId, { ...userUpdated, updatedAt: new Date() });
+
+        response.status(200).json({ user: userUpdated });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
+export const deleteUser = async (request, response) => {
+
+    try {
+        
+        const { userId } = request;
+        if (!userId) Error(response, 'userIdMissing');
+        
+        await userModel.findOneAndDelete({ id: userId });
+
+        response.status(200).json({ userId });
 
     } catch (error) {
         serverError(response, error);

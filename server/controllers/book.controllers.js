@@ -56,12 +56,58 @@ export const postBook = async (request, response) => {
 
     try {
         
+        const { writerId } = request;
         const { book } = request.body;
 
-        const bookInDB = new bookModel(book);
+        const bookInDB = new bookModel({...book, createdBy: writerId });
         await bookInDB.save();
     
         response.status(201).json({ book: bookInDB });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+}
+
+export const updateBook = async (request, response) => {
+
+    try {
+        const { writerId } = request;
+        const { book } = request.body;
+
+        const [ bookInDB ] = await bookModel.find(book);
+
+        if (writerId !== bookInDB.createdBy) Error(response, 'notYourBook');
+        else {
+            
+            await bookModel.findByIdAndUpdate(book.id, { ...book, updatedAt: new Date() });
+        
+            response.status(201).json({ book: bookInDB });
+
+        }
+
+    } catch (error) {
+        serverError(response, error);
+    }
+}
+
+export const deleteBook = async (request, response) => {
+
+    try {
+        
+        const { writerId } = request;
+        const { book } = request.body;
+
+        const [ bookInDB ] = await bookModel.find(book);
+
+        if (writerId !== bookInDB.createdBy) Error(response, 'notYourBook');
+        else {
+            
+            await bookModel.findByIdAndDelete(book.id);
+        
+            response.status(200).json({ book: bookInDB });
+
+        }
 
     } catch (error) {
         serverError(response, error);

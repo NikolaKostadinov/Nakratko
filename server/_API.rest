@@ -5,7 +5,7 @@ Content-Type: application/json
     "user": {
         "firstName": "Server",
         "lastName": "Admin",
-        "email": "admin@nakratko.com",
+        "email": "admin@nakratko.co",
         "password": "123456",
         "roleKey": "0000"
     }
@@ -19,4 +19,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmMzM
 ###
 
 POST http://localhost:5000/payment/subscribe
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NmFlMTkzM2Q4ZmJkZjNhYmIxMjYiLCJpYXQiOjE2NTcwMzk1ODUsImV4cCI6MTY1NzA0MDE4NX0.nWaRswXFua_JlrITc6Mz7h6qZaO_NkfQYvfl4wsbxq8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NzA3NTIyMTU3Mzg5YTE0NjgwMzEiLCJpYXQiOjE2NTcwNDE2NzMsImV4cCI6MTY1NzA0MjI3M30.eKRWdCWZpXcSZD5axYYCUKiSNcCpuy7v-dljdfkZHMw
+
+###
+
+GET http://localhost:5000/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0ODA2ZTcxMzAyYjQ1YTE0Y2YwODAiLCJpYXQiOjE2NTcwNDUxMDIsImV4cCI6MTY1NzA0NTcwMn0.T_lKpCKrmT_RNCI4bxI2xq8_NAirTe_8VXs1gqnPHb4
+
+###
+
+GET http://localhost:5000

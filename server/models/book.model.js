@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+import { encodeFileToWebBase64 } from '../modules/base64.js';
+
+const DEFAULT_COVER = './assets/defaultcover.jpg';
+
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -17,7 +21,8 @@ const bookSchema = new mongoose.Schema({
         type: String,
         unique: false,
         requred: false,
-        trim: false
+        trim: false,
+        default: encodeFileToWebBase64(DEFAULT_COVER)
     },
     createdBy: {
         type: String,
@@ -28,7 +33,7 @@ const bookSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         unique: false,
-        requred: true,
+        requred: false,
         default: new Date()
     },
     updatedAt: {

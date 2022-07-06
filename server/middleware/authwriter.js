@@ -28,7 +28,12 @@ export const authenticateWriter = async (request, response, next) => {
                 if (!roleKey) Error(response, 'roleKeyMissing');
                 else {
 
-                    if (isWriter(roleKey) || isAdmin(roleKey)) next();
+                    if (isWriter(roleKey) || isAdmin(roleKey)) {
+
+                        request.writerId = userInDBSecured.id;
+                        next();
+
+                    }
                     else Error(response, 'writerKeyInvalid');
                     
                 }

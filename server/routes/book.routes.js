@@ -11,5 +11,7 @@ const router = express.Router();
 router.get('/', authenticateUser, controllers.getCoverBooks);
 router.get('/:bookId', authenticateSubscribedUser, controllers.getFullBook);
 router.post('/', authenticateWriter, controllers.postBook);
+router.patch('/', authenticateWriter, controllers.updateBook);
+router.delete('/', authenticateWriter, controllers.deleteBook);
 
 export default router;
