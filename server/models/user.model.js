@@ -51,6 +51,13 @@ const userSchema = new mongoose.Schema({
         requred: false,
         trim: false
     },
+    favoriteBooks: {
+        type: [String],
+        unique: false,
+        requred: false,
+        trim: false,
+        default: []
+    },
     createdAt: {
         type: Date,
         unique: false,

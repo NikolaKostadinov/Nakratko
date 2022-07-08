@@ -1,4 +1,5 @@
 import bookModel from '../models/book.model.js';
+import userModel from '../models/user.model.js';
 
 import Error from '../errors/error.js';
 import serverError from '../errors/500.js';
@@ -44,6 +45,52 @@ export const getFullBook = async (request, response) => {
 
         const { bookId } = request.params;
 
+        response.status(200).json({ book: bookId });
+        
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
+export const addToFavorites = async (request, response) => {
+
+    try {
+
+        const { userId } = request;
+        const { bookId } = request.params;
+
+        const { favoriteBooks } = await userModel.findById(userId);
+
+        if (favoriteBooks.includes(bookId)) response.status(202).json({ book: bookId });
+        else {
+
+            await userModel.findByIdAndUpdate(userId, { favoriteBooks: [ ...favoriteBooks, bookId ] });
+    
+            response.status(200).json({ book: bookId });
+
+        }
+        
+    } catch (error) {
+        serverError(response, error);
+    }
+
+}
+
+export const removeFromFavorites = async (request, response) => {
+
+    try {
+
+        const { userId } = request;
+        const { bookId } = request.params;
+
+        const { favoriteBooks } = await userModel.findById(userId);
+
+        const bookIdIndex = favoriteBooks.indexOf(bookId);
+        if (bookIdIndex > -1) favoriteBooks.splice(bookIdIndex, 1);
+
+        await userModel.findByIdAndUpdate(userId, { favoriteBooks });
+    
         response.status(200).json({ book: bookId });
         
     } catch (error) {
