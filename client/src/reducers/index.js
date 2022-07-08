@@ -1,3 +1,9 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({ });
+import bookReducer from './book.reducer.js';
+import userReducer from './user.reducer.js';
+
+export default combineReducers({
+    books: bookReducer,
+    user: userReducer
+});
