@@ -4,4 +4,4 @@ import thunk from 'redux-thunk';
 
 import reducer from './reducers';
 
-export default configureStore(reducer, compose(applyMiddleware(thunk)));
+export default configureStore({ reducer }, compose(applyMiddleware(thunk)));

@@ -8,7 +8,7 @@ import * as controllers from '../controllers/book.controllers.js';
 
 const router = express.Router();
 
-router.get('/', authenticateUser, controllers.getCoverBooks);
+router.get('/', /*authenticateUser,*/ controllers.getCoverBooks);
 router.get('/:bookId', authenticateSubscribedUser, controllers.getFullBook);
 router.post('/add-to-favorites/:bookId', authenticateSubscribedUser, controllers.addToFavorites);
 router.post('/remove-from-favorites/:bookId', authenticateSubscribedUser, controllers.removeFromFavorites);
