@@ -8,7 +8,7 @@ import './styles.scss';
 export default function BookDeck () {
 
     const books = useSelector(state => state.books)
-    const bookCards = books.map(book => <BookCard book={book} />)
+    const bookCards = books.map(book => <BookCard book={book} key={book._id} />)
 
     return(
         <div>

@@ -17,3 +17,21 @@ export const getBooks = () => async (dispatch) => {
     }
 
 }
+
+export const getBook = (bookToFind) => async (dispatch) => {
+
+    try {
+
+        const response = await api.getBook(bookToFind).then(response => response.data)
+        const { book } = response; 
+
+        const action = {
+            type: 'GET',
+            payload: book
+        };
+        dispatch(action);
+    } catch (error) {
+        console.error(error.message);
+    }
+
+}

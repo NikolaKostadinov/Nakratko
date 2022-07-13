@@ -5,7 +5,7 @@ import { getBooks } from '../actions/book.actions';
 
 import BookDeck from '../components/BookDeck/BookDeck';
 
-export default function Books () {
+export default function BooksPage () {
     
     const dispatch = useDispatch();
 

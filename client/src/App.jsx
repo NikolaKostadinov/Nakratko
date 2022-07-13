@@ -4,7 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 
 import Home from './pages/Home.jsx';
-import Books from './pages/Books.jsx';
+import BooksPage from './pages/BooksPage.jsx';
+import BookPage from './pages/BookPage.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App () {
@@ -14,7 +15,8 @@ export default function App () {
             <Navbar />
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/books' element={<Books />} />
+                <Route path='/books' element={<BooksPage />} />
+                <Route path='/book/:booktitle' element={<BookPage />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </BrowserRouter>

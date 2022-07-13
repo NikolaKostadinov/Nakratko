@@ -39,6 +39,21 @@ export const getCoverBooks = async (request, response) => {
     }
 }
 
+export const getCoverBook = async (request, response) => {
+
+    try {
+        
+        const { bookId } = request.params;
+
+        const book = await bookModel.findById(bookId); // THIS SHOULD BE FILTERED
+    
+        response.status(200).json({ book });
+
+    } catch (error) {
+        serverError(response, error);
+    }
+}
+
 export const getFullBook = async (request, response) => {
 
     try {
