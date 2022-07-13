@@ -43,11 +43,11 @@ export const getCoverBook = async (request, response) => {
 
     try {
         
-        const { bookId } = request.params;
+        const { book } = request.body;
 
-        const book = await bookModel.findById(bookId); // THIS SHOULD BE FILTERED
+        const [bookInDBCover] = await bookModel.find(book); // THIS SHOULD BE FILTERED
     
-        response.status(200).json({ book });
+        response.status(200).json({ book: bookInDBCover });
 
     } catch (error) {
         serverError(response, error);

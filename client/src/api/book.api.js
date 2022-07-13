@@ -5,4 +5,4 @@ const BOOKS_URL = `${URL}/books`;
 
 export const getBooks = () => axios.get(BOOKS_URL);
 
-export const getBook = (book) => axios.get();
+export const getBook = (book) => axios.post(BOOKS_URL, { book });
