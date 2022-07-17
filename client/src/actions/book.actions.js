@@ -4,7 +4,7 @@ export const getBooks = () => async (dispatch) => {
 
     try {
 
-        const response = await api.getBooks().then(response => response.data)
+        const response = await api.getBooks().then(response => response.data);
         const { books } = response; 
 
         const action = {
@@ -22,7 +22,7 @@ export const getBook = (bookToFind) => async (dispatch) => {
 
     try {
 
-        const response = await api.getBook(bookToFind).then(response => response.data)
+        const response = await api.getBook(bookToFind).then(response => response.data);
         const { book } = response; 
 
         const action = {

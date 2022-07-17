@@ -25,19 +25,20 @@ export const getUser = async (request, response) => {
 export const loginUser = async (request, response) => {
 
     try {
-        
+
         const { user } = request.body;
         const { password } = user
         delete user.password;
 
         const userInDB = await userModel.findOne({ user });
-        const userInDBSecured = await userModel.findOne({ user }).select('-password');
+        const userInDBSecured = await userModel.findOne({ user }).select('-password -refreshToken');
 
         if (password == userInDB.password) {    // NOT HASHED FOR DEV PURPOSES //
 
             const accessToken = generateAccessToken(userInDB);
+            const { refreshToken } = userInDB
 
-            response.status(201).json({ user: userInDBSecured, accessToken });
+            response.status(201).cookie('refreshToken', refreshToken, { httpOnly: true }).json({ user: userInDBSecured, accessToken });
 
         } else Error(response, 'invalidPassword');
 

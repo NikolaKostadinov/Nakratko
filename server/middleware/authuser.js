@@ -34,9 +34,9 @@ export const authenticateUserRefresh = (request, response, next) => {
 
     try {
         
-        const refreshToken = getBearerToken(request);
+        const { refreshToken } = request.cookies;
 
-        if (!refreshToken) Error(response, 'bearer');
+        if (!refreshToken) Error(response, 'cookie');
         else {
 
             const decodedRefreshToken = decodeRefreshToken(refreshToken);

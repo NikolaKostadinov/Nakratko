@@ -10,6 +10,7 @@ export default function BookPreview () {
     return(
         <>
             <h1>{book.title}</h1>
+            <img src={book.cover} alt={book.title} />
         </>
     );
 }

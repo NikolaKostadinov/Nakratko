@@ -1,6 +1,7 @@
 import express from 'express';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -16,6 +17,7 @@ import * as serverController from './controllers/server.controller.js';
 
 dotenv.config();
 const {
+	ORIGIN,
 	PORT,
 	DATA_LIMIT,
 	DB_URI,
@@ -32,10 +34,11 @@ const bodyParserSettings = {
 app.use(bodyParser.json(bodyParserSettings));
 app.use(bodyParser.urlencoded(bodyParserSettings));
 
-app.use(cors());
+app.use(cookieParser());
+
+app.use(cors({origin: ORIGIN, credentials: true}));
 
 app.use(helmet());
-
 
 if (BUNKER_MODE == 'true') app.use('/bunker', bunkerRouter);
 else {

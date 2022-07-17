@@ -1,8 +1,7 @@
-import axios from 'axios';
+import { baseAxios } from "./axios";
 
-const URL = process.env.REACT_APP_SERVER_URL;
-const BOOKS_URL = `${URL}/books`;
+const PATH = '/books';
 
-export const getBooks = () => axios.get(BOOKS_URL);
+export const getBooks = () => baseAxios.get(PATH);
 
-export const getBook = (book) => axios.post(BOOKS_URL, { book });
+export const getBook = (book) => baseAxios.post(PATH, { book });

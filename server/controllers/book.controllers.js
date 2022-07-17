@@ -135,9 +135,10 @@ export const updateBook = async (request, response) => {
 
     try {
         const { writerId, isAdmin } = request;
+        const { bookId } = request.params;
         const { book } = request.body;
 
-        const [ bookInDB ] = await bookModel.find(book);
+        const bookInDB = await bookModel.findById(bookId);
 
         if (writerId !== bookInDB.createdBy || !isAdmin) Error(response, 'notYourBook');
         else {
@@ -158,9 +159,9 @@ export const deleteBook = async (request, response) => {
     try {
         
         const { writerId } = request;
-        const { book } = request.body;
+        const { bookId } = request.params;
 
-        const [ bookInDB ] = await bookModel.find(book);
+        const bookInDB = await bookModel.findById(bookId);
 
         if (writerId !== bookInDB.createdBy) Error(response, 'notYourBook');
         else {

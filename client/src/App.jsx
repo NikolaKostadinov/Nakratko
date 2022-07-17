@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar.jsx';
 import Home from './pages/Home.jsx';
 import BooksPage from './pages/BooksPage.jsx';
 import BookPage from './pages/BookPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App () {
@@ -17,6 +18,7 @@ export default function App () {
                 <Route path='/' element={<Home />} />
                 <Route path='/books' element={<BooksPage />} />
                 <Route path='/book/:booktitle' element={<BookPage />} />
+                <Route path='/login' element={<LoginPage />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </BrowserRouter>
