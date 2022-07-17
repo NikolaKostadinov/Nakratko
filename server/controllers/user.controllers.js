@@ -65,11 +65,10 @@ export const registerUser = async (request, response) => {
             const refreshToken = generateRefreshToken(userInDB);
 
             userInDB.refreshToken = refreshToken;
-            await userInDB.save();
 
-            delete userInDB.password;
-    
-            response.status(201).json({ user: userInDB, accessToken });
+            const userInDBSecured = await userModel.findOne(userInDB).select('-password -refreshToken');
+
+            response.status(201).json({ user: userInDBSecured, accessToken });
 
         }
 

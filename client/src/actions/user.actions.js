@@ -1,5 +1,23 @@
 import * as api from '../api/user.api.js';
 
+export const registerUser = (inputUser) => async (dispatch) => {
+
+    try {
+
+        const response = await api.registerUser(inputUser).then(response => response.data);
+        const { user, accessToken } = response;
+
+        const action = {
+            type: 'IN',
+            payload: { ...user, accessToken }
+        };
+        dispatch(action);
+    } catch (error) {
+        console.error(error.message);
+    }
+
+}
+
 export const loginUser = (inputUser) => async (dispatch) => {
 
     try {
