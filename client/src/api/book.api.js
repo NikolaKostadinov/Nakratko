@@ -1,7 +1,7 @@
-import { baseAxios } from "./axios";
+import axios from "./axios";
 
 const PATH = '/books';
 
-export const getBooks = () => baseAxios.get(PATH);
+export const getBooks = () => axios.get(PATH);
 
-export const getBook = (book) => baseAxios.post(PATH, { book });
+export const getBook = (book) => axios.post(PATH, { book });

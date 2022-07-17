@@ -1,7 +1,7 @@
-import { baseAxios, privateAxios } from "./axios";
+import axios from "./axios";
 
 const PATH = '/user';
 
-export const loginUser = (user) => baseAxios.post(PATH + '/login', { user });
+export const loginUser = (user) => axios.post(PATH + '/login', { user });
 
-export const refreshUserAccess = () => privateAxios.get(PATH + '/refresh');
+export const refreshUserAccess = () => axios.get(PATH + '/refresh');

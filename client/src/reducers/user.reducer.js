@@ -6,6 +6,8 @@ export default function reducer (state = {}, action) {
 
         case 'OUT': return { };
 
+        case 'REFRESH': return { ...state, accessToken: action.payload };
+
         default: return state;
 
     }

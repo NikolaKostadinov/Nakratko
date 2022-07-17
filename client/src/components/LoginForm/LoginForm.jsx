@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { loginUser } from '../../actions/user.actions';
+import { loginUser, refreshUserAccess } from '../../actions/user.actions';
 
 import './styles.scss';
 
@@ -18,17 +18,24 @@ export default function LoginForm () {
 
         const user = { email, password };
 
-        dispatch(loginUser(user))
+        dispatch(loginUser(user));
 
     }
 
-    
+    function handleRefresh () {
+
+        dispatch(refreshUserAccess());
+
+    }
 
     return(
+        <>
         <form onSubmit={handleSubmit}>
             <input type='email' name='email' />
             <input type='password' name='password' />
             <button type='submit'>Log in</button>
         </form>
+        <button onClick={handleRefresh}>REFRESH</button>
+        </>
     );
 }
