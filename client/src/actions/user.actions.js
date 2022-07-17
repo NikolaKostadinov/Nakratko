@@ -35,3 +35,17 @@ export const refreshUserAccess = (inputUser) => async (dispatch) => {
     }
 
 }
+
+export const logoutUser = () => async (dispatch) => {
+
+    try {
+
+        const action = {
+            type: 'OUT',
+        };
+        dispatch(action);
+    } catch (error) {
+        console.error(error.message);
+    }
+
+}

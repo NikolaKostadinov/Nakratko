@@ -11,7 +11,7 @@ export default function Navbar () {
            <Link to='/books'>Books</Link>
            <Link to='/register'>Sign up</Link>
            <Link to='/login'>Log in</Link>
-           <Link to='/logot'>Log out</Link>
+           <Link to='/logout'>Log out</Link>
         </nav>
     );
 }
